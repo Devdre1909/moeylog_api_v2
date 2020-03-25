@@ -18,7 +18,7 @@ module.exports = () => {
     let start;
 
     create = () => {
-        //let routes = require('../routes');
+        let routes = require('../routes');
 
         // handle uncaught exception
         process.on('uncaughtException', err => {
@@ -47,7 +47,7 @@ module.exports = () => {
         )
 
         //connect db
-        //connectDB();
+        connectDB();
 
         if (server.get('env') === 'development') {
             server.use(morgan('tiny'));
@@ -58,8 +58,24 @@ module.exports = () => {
         server.use(hpp());
 
         //set up routes
-        //routes.init(server);
+        routes.init(server);
+
+        // 404 Error Handler. Request not found.
+        app.use((req, res, next) => {
+            res.status(httpStatusCode.BAD_REQUEST).json({
+                err: "wrong/unavailable endpoint",
+                context: "Good news, you are where you want to be. Bad News, you are kinda lost"
+            });
+        })
+
+        // 505 Error Handler
+        app.use((err, req, res, next) => {
+            console.error(chalk.red(err.stack));
+            res.sendFile(path.join(__dirname, '../public/505.html'));
+        })
+
     }
+
     start = () => {
         let hostname = server.get('hostname');
         let port = server.get('port') || 5000;
