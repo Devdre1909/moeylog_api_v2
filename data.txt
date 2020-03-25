@@ -1,0 +1,25 @@
+Model for Money API
+
+User
+	-> name
+	-> email
+	-> password
+	-> currency (localisation?)
+
+Credit
+	-> user_id
+	-> date (new Date().toDateString())
+	-> time (new Time().toTimeString())
+	-> amount
+	-> description
+	-> comments(optional)
+	-> can_edit (? can later edit this transaction)
+	
+Debit
+	-> user_id
+	-> date (new Date().toDateString())
+	-> time (new Time().toTimeString())
+	-> amount
+	-> description
+	-> comments(optional)
+	-> can_edit (? can later edit this transaction)
