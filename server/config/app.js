@@ -39,13 +39,8 @@ module.exports = () => {
     // add middleware
     server.use(helmet());
     server.use(cors());
-    server.use(bodyParser.json());
-    //server.use(expressValidator);
-    server.use(
-      bodyParser.urlencoded({
-        extended: true
-      })
-    );
+    server.use(express.json());
+    server.use(express.urlencoded({ extended: false }));
 
     //connect db
     connectDB();

@@ -105,8 +105,8 @@ const login = async (req, res, next) => {
       success: [
         {
           msg: "user login successful",
-          email: email,
-          token: token
+          email,
+          token
         }
       ]
     });

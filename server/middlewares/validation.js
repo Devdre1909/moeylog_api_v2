@@ -59,9 +59,9 @@ const validateLoginBody = () => {
       .withMessage("password is required")
       .isLength({
         min: 8,
-        max: 12
+        max: 18
       })
-      .withMessage("password must be in between 8 to 12 characters long")
+      .withMessage("invalid email/password")
   ];
 };
 
