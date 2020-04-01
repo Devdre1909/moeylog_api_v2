@@ -37,6 +37,10 @@ let User = new Schema(
         values: currency,
         message: "give access and turn on location/pick form the list"
       }
+    },
+    deleted: {
+      type: Boolean,
+      default: false
     }
   },
   {
