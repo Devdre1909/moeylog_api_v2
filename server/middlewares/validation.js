@@ -1,4 +1,4 @@
-const { check } = require("express-validator");
+const { check, body } = require("express-validator");
 
 const fs = require("fs");
 const path = require("path");
@@ -13,6 +13,7 @@ for (const c in ObjCurrency) {
   currency.push(c);
 }
 
+// validate req body when registering
 const validateRegistrationBody = () => {
   return [
     check("name")
@@ -47,6 +48,7 @@ const validateRegistrationBody = () => {
   ];
 };
 
+// validate login body
 const validateLoginBody = () => {
   return [
     check("email")
@@ -65,6 +67,7 @@ const validateLoginBody = () => {
   ];
 };
 
+// validate for transaction (credit and debit)
 const validateTransactions = () => {
   return [
     check("user_id")
@@ -87,6 +90,7 @@ const validateTransactions = () => {
   ];
 };
 
+// validate req body for update user details
 const validateUpdateDetails = () => {
   return [
     check("name")
@@ -101,14 +105,6 @@ const validateUpdateDetails = () => {
       .withMessage("email is required")
       .isEmail()
       .withMessage("email is invalid"),
-    check("password")
-      .exists()
-      .withMessage("password is required")
-      .isLength({
-        min: 8,
-        max: 18
-      })
-      .withMessage("password must be in between 8 to 12 characters long"),
     check("currency")
       .exists()
       .withMessage("currency is required")
@@ -121,9 +117,24 @@ const validateUpdateDetails = () => {
   ];
 };
 
+// validate req body for update password
+const validateUpdatePassword = () => {
+  return [
+    check("password")
+      .exists()
+      .withMessage("password is required")
+      .isLength({ min: 8, max: 18 })
+      .withMessage("password must be in between 8 to 12 characters long")
+    // .equals(body("confirmPassword"))
+    // .withMessage("password must be same as confirm password")
+    // TODO fix validation of confirm password and password
+  ];
+};
+
 module.exports = {
   validateLoginBody,
   validateRegistrationBody,
   validateTransactions,
-  validateUpdateDetails
+  validateUpdateDetails,
+  validateUpdatePassword
 };
