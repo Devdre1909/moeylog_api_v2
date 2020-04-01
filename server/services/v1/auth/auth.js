@@ -8,6 +8,9 @@ const { validationResult } = require("express-validator");
 
 const userModel = require("../../../models/user");
 
+// @desc      Register a new user
+// @route     POST /api/v1/auth/register/
+// @access    Public
 const register = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -62,6 +65,9 @@ const register = async (req, res, next) => {
   }
 };
 
+// @desc      Login a user
+// @route     POST /api/v1/auth/login/
+// @access    Public
 const login = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -95,9 +101,9 @@ const login = async (req, res, next) => {
       {
         id: isUserExist._id
       },
-      process.env.SECRET,
+      process.env.JWT_SECRET,
       {
-        expiresIn: 86400
+        expiresIn: process.env.JWT_EXPIRE
       }
     );
 
